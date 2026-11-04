@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>설문 관리자</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 30px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: 28px;
+        }
+
+        .logout {
+            background: #e74c3c;
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .logout:hover {
+            background: #c0392b;
+        }
+
+        .summary {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px #00000010;
+        }
+
+        .summary h2 {
+            margin: 0;
+            color: #3498db;
+            font-size: 32px;
+        }
+
+        .table-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            box-shadow: 0 2px 8px #00000010;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #f8f9fa;
+        }
+
+        tr:hover {
+            background: #f1f7ff;
+        }
+
+        .empty {
+            text-align: center;
+            color: #888;
+            padding: 30px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <header>
+        <h1>설문 관리자</h1>
+
+        <a href="/admin/logout" class="logout">
+            로그아웃
+        </a>
+    </header>
+
+    <div class="summary">
+        <p>총 설문 제출 수</p>
+        <h2>{{ responses|length }}건</h2>
+    </div>
+
+    <div class="table-box">
+        <h2>설문 제출 데이터</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>제출 시간</th>
+                    <th>이름</th>
+                    <th>학과</th>
+                    <th>AI 사용 빈도</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for row in responses %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" class="empty">
+                        아직 제출된 설문이 없습니다.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>
